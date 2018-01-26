@@ -9,9 +9,12 @@ LABEL description="Speckle Server Docker Container Image"
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
 
-# INSTALL
-COPY package*.json ./
-RUN npm install
+# INSTALL - FOR RELEASE ONLY
+#COPY package*.json ./
+#RUN npm install
+#COPY . .
+#CMD ["node", "server.js"]
 
-COPY . .
-CMD ["node", "server.js"]
+# Copy the entry point
+COPY ./docker-entrypoint.sh /
+ENTRYPOINT ["/docker-entrypoint.sh"]
